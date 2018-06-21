@@ -7,46 +7,9 @@ class GildedRose
   def update_quality
     @items.each do |item|
 
-      if !is_aged_brie?(item) && !is_backstage_pass?(item)
-        if item.quality > 0
-          decrement_quality(item) if !is_sulfuras?(item)
-        end
-      else
-        if item.quality < 50
-          increment_quality(item)
-          if is_backstage_pass?(item)
-            if item.sell_in < 11
-              increment_quality(item) if item.quality < 50
-            end
-            if item.sell_in < 6
-              increment_quality(item) if item.quality < 50
-            end
-          end
-        end
-      end
-
-      # Sulfuras should not deprecate
-      item.sell_in -= 1 unless is_sulfuras?(item)
-
-
-      if item.sell_in < 0
-        if !is_aged_brie?(item)
-          if !is_backstage_pass?(item)
-
-            if item.quality > 0
-              decrement_quality(item) if !is_sulfuras?(item)
-            end
-
-          else # item.name != "Backstage passes to a TAFKAL80ETC concert"
-            item.quality = item.quality - item.quality
-          end # item.name != "Backstage passes to a TAFKAL80ETC concert"
-
-        else #item.name != "Aged Brie"
-          increment_quality(item) if item.quality < 50
-        end #item.name != "Aged Brie"
-
-      end #item.sell_in < 0
-
+      update_standard_item(item)
+      update_brie(item)
+      update_backstage_pass(item)
 
     end
 
@@ -63,7 +26,7 @@ class GildedRose
   end
 
   def is_standard_item?(item)
-    !is_aged_brie?(item) || !is_backstage_pass?(item) || !is_sulfuras?(item)
+    !is_aged_brie?(item) && !is_backstage_pass?(item) && !is_sulfuras?(item)
   end
 
   def is_sulfuras?(item)
@@ -78,13 +41,38 @@ class GildedRose
     item.name == 'Aged Brie'
   end
 
-  def handle_standard_item(item)
-    if is_standard_item(item)
-      decrement_quality(item)
-      item.sell_in -= 1
+  def decrement_sellin(item)
+    item.sell_in -= 1
+  end
+
+  def update_standard_item(item)
+    if is_standard_item?(item) && item.quality > 0
+      decrement_sellin(item)
+      item.sell_in > -1 ? decrement_quality(item) : 2.times {decrement_quality(item)}
     end
   end
 
+  def update_brie(item)
+    if is_aged_brie?(item) && item.quality < 50
+      increment_quality(item)
+      decrement_sellin(item)
+    end
+  end
+
+  def update_backstage_pass(item)
+    if is_backstage_pass?(item) && item.quality < 50
+      if item.sell_in > 9
+        increment_quality(item)
+      elsif item.sell_in > 4
+        2.times { increment_quality(item) }
+      elsif item.sell_in > 0
+        3.times { increment_quality(item) }
+      else
+        item.quality = 0
+      end
+      decrement_sellin(item)
+    end
+  end
 
 end
 

@@ -121,14 +121,4 @@ describe GildedRose do
 
   end
 
-  # describe '#handle_standard_item' do
-  #
-  #   it 'Calls the is_standard_item method' do
-  #     standard_item = Item.new(name="+5 Dexterity Vest", sell_in=10, quality=20)
-  #     shop = GildedRose.new([standard_item])
-  #     expect(shop).to receive(:is_standard_item?).with(standard_item)
-  #   end
-  #
-  # end
-
 end
