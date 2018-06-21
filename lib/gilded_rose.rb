@@ -7,7 +7,7 @@ class GildedRose
   def update_quality
     @items.each do |item|
 
-      if item.name != "Aged Brie" && !is_backstage_pass?(item)
+      if !is_aged_brie?(item) && !is_backstage_pass?(item)
         if item.quality > 0
           decrement_quality(item) if !is_sulfuras?(item)
         end
@@ -32,7 +32,7 @@ class GildedRose
 
 
       if item.sell_in < 0
-        if item.name != "Aged Brie"
+        if !is_aged_brie?(item)
           if !is_backstage_pass?(item)
 
             if item.quality > 0
@@ -74,6 +74,10 @@ class GildedRose
 
   def is_backstage_pass?(item)
     item.name == 'Backstage passes to a TAFKAL80ETC concert'
+  end
+
+  def is_aged_brie?(item)
+    item.name == 'Aged Brie'
   end
 
 
