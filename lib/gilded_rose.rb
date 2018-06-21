@@ -9,30 +9,24 @@ class GildedRose
 
       if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
         if item.quality > 0
-          if item.name != "Sulfuras, Hand of Ragnaros"
-            decrement_quality(item)
-          end
+          decrement_quality(item) if !is_sulfuras?(item)
         end
       else
         if item.quality < 50
           increment_quality(item)
           if item.name == "Backstage passes to a TAFKAL80ETC concert"
             if item.sell_in < 11
-              if item.quality < 50
-                increment_quality(item)
-              end
+              increment_quality(item) if item.quality < 50
             end
             if item.sell_in < 6
-              if item.quality < 50
-                increment_quality(item)
-              end
+              increment_quality(item) if item.quality < 50
             end
           end
         end
       end
 
       # Sulfuras should not deprecate
-      if item.name != "Sulfuras, Hand of Ragnaros"
+      if !is_sulfuras?(item)
         item.sell_in = item.sell_in - 1
       end
 
@@ -42,7 +36,7 @@ class GildedRose
           if item.name != "Backstage passes to a TAFKAL80ETC concert"
 
             if item.quality > 0
-              decrement_quality(item) if item.name != "Sulfuras, Hand of Ragnaros"
+              decrement_quality(item) if !is_sulfuras?(item)
             end
 
           else # item.name != "Backstage passes to a TAFKAL80ETC concert"
@@ -68,6 +62,14 @@ class GildedRose
 
   def decrement_quality(item)
     item.quality -= 1
+  end
+
+  def is_normal_item?(item)
+    item.name != 'Aged Brie' || item.name != 'Backstage passes to a TAFKAL80ETC concert' || item.name != 'Sulfuras, Hand of Ragnaros'
+  end
+
+  def is_sulfuras?(item)
+    item.name == 'Sulfuras, Hand of Ragnaros'
   end
 
 

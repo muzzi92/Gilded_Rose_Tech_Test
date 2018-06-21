@@ -75,33 +75,39 @@ describe GildedRose do
 
     context 'When the item is Backstage Pass' do
 
-      before(:each) do
-        @pass = Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=15, quality=20)
-        @shop = GildedRose.new( [@pass])
-        @shop.update_quality
-      end
-
       it 'Decreases sell_in by 1' do
-        expect(@pass.sell_in).to eq(14)
+        pass = Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=15, quality=20)
+        shop = GildedRose.new([pass])
+        shop.update_quality
+        expect(pass.sell_in).to eq(14)
       end
 
       it 'Increases quality by 1 when sell_in is 10 or more' do
-        expect(@pass.quality).to eq(21)
+        pass = Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=15, quality=20)
+        shop = GildedRose.new([pass])
+        shop.update_quality
+        expect(pass.quality).to eq(21)
       end
 
       it 'Increases quality by 2 when sell_in is 5 or more' do
-        5.times { @shop.update_quality }
-        expect(@pass.quality).to eq(27)
+        pass = Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=6, quality=20)
+        shop = GildedRose.new([pass])
+        shop.update_quality
+        expect(pass.quality).to eq(22)
       end
 
       it 'Increases quality by 3 when sell_in is 0 or more' do
-        10.times { @shop.update_quality }
-        expect(@pass.quality).to eq(38)
+        pass = Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=2, quality=20)
+        shop = GildedRose.new([pass])
+        shop.update_quality
+        expect(pass.quality).to eq(23)
       end
 
       it 'Quality is 0 when sell_in is below 0' do
-        15.times { @shop.update_quality }
-        expect(@pass.quality).to eq(0)
+        pass = Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=0, quality=20)
+        shop = GildedRose.new([pass])
+        shop.update_quality
+        expect(pass.quality).to eq(0)
       end
 
       it 'Quality never rises above 50' do
