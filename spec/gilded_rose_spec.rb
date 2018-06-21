@@ -25,6 +25,11 @@ describe GildedRose do
         expect(@standard_item.quality).to eq(8)
       end
 
+      it 'Quality never drops below 0' do
+        25.times { @shop.update_quality }
+        expect(@standard_item.quality).to eq(0)
+      end
+
     end
 
     context 'When the item is Aged Brie' do
@@ -37,6 +42,11 @@ describe GildedRose do
 
       it 'Increases the quality by 1' do
         expect(@brie.quality).to eq(1)
+      end
+
+      it 'Quality never rises above 50' do
+        55.times { @shop.update_quality }
+        expect(@brie.quality).to eq(50)
       end
 
       it 'Decreases the sell_in by 1' do
@@ -92,6 +102,13 @@ describe GildedRose do
       it 'Quality is 0 when sell_in is below 0' do
         15.times { @shop.update_quality }
         expect(@pass.quality).to eq(0)
+      end
+
+      it 'Quality never rises above 50' do
+        pass_two = Item.new(name="Backstage passes to a TAFKAL80ETC concert", sell_in=15, quality=50)
+        shop_two = GildedRose.new( [pass_two])
+        3.times { shop_two.update_quality }
+        expect(pass_two.quality).to eq(50)
       end
 
     end
