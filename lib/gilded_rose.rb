@@ -26,9 +26,7 @@ class GildedRose
       end
 
       # Sulfuras should not deprecate
-      if !is_sulfuras?(item)
-        item.sell_in = item.sell_in - 1
-      end
+      item.sell_in -= 1 unless is_sulfuras?(item)
 
 
       if item.sell_in < 0
@@ -64,8 +62,8 @@ class GildedRose
     item.quality -= 1
   end
 
-  def is_normal_item?(item)
-    item.name != 'Aged Brie' || item.name != 'Backstage passes to a TAFKAL80ETC concert' || item.name != 'Sulfuras, Hand of Ragnaros'
+  def is_standard_item?(item)
+    !is_aged_brie?(item) || !is_backstage_pass?(item) || !is_sulfuras?(item)
   end
 
   def is_sulfuras?(item)
@@ -78,6 +76,13 @@ class GildedRose
 
   def is_aged_brie?(item)
     item.name == 'Aged Brie'
+  end
+
+  def handle_standard_item(item)
+    if is_standard_item(item)
+      decrement_quality(item)
+      item.sell_in -= 1
+    end
   end
 
 
