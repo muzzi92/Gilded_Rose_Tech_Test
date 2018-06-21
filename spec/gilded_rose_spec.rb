@@ -71,13 +71,18 @@ describe GildedRose do
         @shop.update_quality
       end
 
-      it 'Increases quality by 1 when sell_in is over 10' do
+      it 'Increases quality by 1 when sell_in is 10 or more' do
         expect(@pass.quality).to eq(21)
       end
 
-      it 'Increases quality by 2 when sell_in is over 5' do
+      it 'Increases quality by 2 when sell_in is 5 or more' do
         5.times { @shop.update_quality }
         expect(@pass.quality).to eq(27)
+      end
+
+      it 'Increases quality by 3 when sell_in is 0 or more' do
+        10.times { @shop.update_quality }
+        expect(@pass.quality).to eq(38)
       end
 
     end
