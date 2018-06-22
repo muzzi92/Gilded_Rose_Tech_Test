@@ -12,4 +12,11 @@ describe StandardItem do
       expect(subject.quality).to eq(20)
     end
   end
+
+  describe '#decrease_sell_in' do
+    it 'Reduces sell_in attribute by 1' do
+      subject.decrease_sell_in
+      expect(subject.sell_in).to eq(9)
+    end
+  end
 end
