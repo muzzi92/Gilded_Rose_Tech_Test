@@ -19,4 +19,11 @@ describe StandardItem do
       expect(subject.sell_in).to eq(9)
     end
   end
+
+  describe '#decrease_quality' do
+    it 'Reduces quality attribute by 1' do
+      subject.decrease_quality
+      expect(subject.quality).to eq(19)
+    end
+  end
 end

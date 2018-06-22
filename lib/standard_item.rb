@@ -7,4 +7,9 @@ class StandardItem < Item
   def decrease_sell_in
     @sell_in -= 1
   end
+
+  def decrease_quality
+    @quality -= 1
+  end
+
 end
