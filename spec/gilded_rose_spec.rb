@@ -13,6 +13,10 @@ describe GildedRose do
       expect(subject).to receive(:update_brie).with(item)
       subject.update_quality
     end
+    it 'Calls update_backstage_pass' do
+      expect(subject).to receive(:update_backstage_pass).with(item)
+      subject.update_quality
+    end
   end
 
 end
