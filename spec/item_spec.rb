@@ -16,4 +16,10 @@ describe Item do
     end
   end
 
+  describe '#to_s' do
+    it 'Returns a string with attributes interpolated' do
+      expect(subject.to_s).to eq('Aged Brie, 2, 0')
+    end
+  end
+
 end
