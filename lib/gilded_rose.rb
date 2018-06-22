@@ -77,9 +77,6 @@ class GildedRose
 end
 
 
-
-
-
 class Item
   attr_accessor :name, :sell_in, :quality
 
