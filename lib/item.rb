@@ -10,5 +10,5 @@ class Item
   def to_s()
     "#{@name}, #{@sell_in}, #{@quality}"
   end
-  
+
 end

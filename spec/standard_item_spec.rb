@@ -25,5 +25,9 @@ describe StandardItem do
       subject.decrease_quality
       expect(subject.quality).to eq(19)
     end
+    it 'Does not reduce quality to less than MIN_QUALITY' do
+      21.times { subject.decrease_quality }
+      expect(subject.quality).to eq(described_class::MIN_QUALITY)
+    end
   end
 end
