@@ -15,4 +15,11 @@ describe Conjured do
       expect(subject.name).to eq('Cake')
     end
   end
+
+  describe '#update_item' do
+    it 'Decreases quality by 2' do
+      subject.update_item
+      expect(subject.quality).to eq(18)
+    end
+  end
 end
