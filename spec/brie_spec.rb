@@ -16,13 +16,17 @@ describe Brie do
     end
   end
 
-  describe '#increase_quality' do
+  describe '#update_item' do
     it 'Increases quality attribute by 1' do
-      subject.increase_quality
+      subject.update_item
       expect(subject.quality).to eq(6)
     end
+    it 'Decreases sell_in attribute by 1' do
+      subject.update_item
+      expect(subject.sell_in).to eq(1)
+    end
     it 'Does not increase quality passed 50' do
-      50.times { subject.increase_quality }
+      50.times { subject.update_item}
       expect(subject.quality).to eq(50)
     end
   end
