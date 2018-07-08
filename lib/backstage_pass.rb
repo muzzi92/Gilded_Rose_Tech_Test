@@ -2,23 +2,33 @@ require 'standard_item'
 class Pass < StandardItem
 
   def update_item
-
+    decrease_sell_in
+    increase_quality if is_quality_in_range
   end
 
-  # def update_backstage_pass(item)
-  #   if is_backstage_pass?(item) && item.quality < 50
-  #     if item.sell_in > 9
-  #       increment_quality(item)
-  #     elsif item.sell_in > 4
-  #       2.times { increment_quality(item) }
-  #     elsif item.sell_in > 0
-  #       3.times { increment_quality(item) }
-  #     else
-  #       item.quality = 0
-  #     end
-  #     decrement_sellin(item)
-  #   end
-  # end
+private
 
+def increase_quality
+  @quality += 1 if is_sell_in_over_ten
+  @quality += 2 if is_sell_in_6to10
+  @quality += 3 if is_sell_in_1to5
+  @quality = 0 if is_sell_in_negative
+end
+
+def is_sell_in_over_ten
+  @sell_in > 10
+end
+
+def is_sell_in_6to10
+  @sell_in > 5 && @sell_in < 11
+end
+
+def is_sell_in_1to5
+  @sell_in >= 0 && @sell_in < 6
+end
+
+def is_sell_in_negative
+  @sell_in < 0
+end
 
 end
