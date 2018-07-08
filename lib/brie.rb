@@ -8,4 +8,5 @@ class Brie < StandardItem
   def increase_quality
     @quality += 1 unless @quality >= 50
   end
+
 end

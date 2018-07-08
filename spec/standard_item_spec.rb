@@ -13,20 +13,17 @@ describe StandardItem do
     end
   end
 
-  describe '#decrease_sell_in' do
+  describe '#update_item' do
     it 'Reduces sell_in attribute by 1' do
-      subject.decrease_sell_in
+      subject.update_item
       expect(subject.sell_in).to eq(9)
     end
-  end
-
-  describe '#decrease_quality' do
     it 'Reduces quality attribute by 1' do
-      subject.decrease_quality
+      subject.update_item
       expect(subject.quality).to eq(19)
     end
     it 'Does not reduce quality to less than MIN_QUALITY' do
-      21.times { subject.decrease_quality }
+      21.times { subject.update_item }
       expect(subject.quality).to eq(described_class::MIN_QUALITY)
     end
   end
