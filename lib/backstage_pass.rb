@@ -27,8 +27,4 @@ def is_sell_in_1to5
   @sell_in >= 0 && @sell_in < 6
 end
 
-def is_sell_in_negative
-  @sell_in < 0
-end
-
 end

@@ -1,20 +1,12 @@
 require 'gilded_rose'
 
 describe GildedRose do
-  let(:item) { spy :item }
+  let(:item) { double :standarditem }
   subject { GildedRose.new([item]) }
 
   describe '#update_quality' do
     it 'Calls update_standard_item' do
-      expect(subject).to receive(:update_standard_item).with(item)
-      subject.update_quality
-    end
-    it ' Calls update_brie' do
-      expect(subject).to receive(:update_brie).with(item)
-      subject.update_quality
-    end
-    it 'Calls update_backstage_pass' do
-      expect(subject).to receive(:update_backstage_pass).with(item)
+      expect(item).to receive(:update_item)
       subject.update_quality
     end
   end
