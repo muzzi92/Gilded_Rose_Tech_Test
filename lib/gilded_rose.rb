@@ -1,4 +1,9 @@
-require 'item'
+require_relative 'item'
+require_relative 'standard_item'
+require_relative 'sulfuras'
+require_relative 'brie'
+require_relative 'backstage_pass'
+require_relative 'conjured'
 
 class GildedRose
 

@@ -1,4 +1,4 @@
-require 'item'
+require_relative 'item'
 class StandardItem < Item
 
   MIN_QUALITY = 0

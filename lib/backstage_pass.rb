@@ -1,4 +1,4 @@
-require 'standard_item'
+require_relative 'standard_item'
 class Pass < StandardItem
 
   def update_item
